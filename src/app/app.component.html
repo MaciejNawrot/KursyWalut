@@ -1,0 +1,21 @@
+<!--The content below is only a placeholder and can be replaced.-->
+<h2> Kursy walut względem {{ currencyType }} </h2>
+
+<div class="container color-dark">
+  <div class="col">
+    <p>Wszystkie waluty</p>
+  </div>
+  <div class="col">
+    <p>Ulubione waluty</p>
+  </div>
+</div>
+<div class="container color-light">
+  <div class="col">
+    <app-currency *ngFor="let curr of currencyArr" [currency]="curr" (currencyFired)="onCurrencyFired($event)"></app-currency>
+  </div>
+  <div class="col" [@animateEnter]="clickedArr.length">
+    <ng-container *ngFor="let curr of currencyArr">
+      <app-favorites *ngIf="curr.favorite === 1" [currency]="curr" ></app-favorites>
+    </ng-container>
+  </div>
+</div>
