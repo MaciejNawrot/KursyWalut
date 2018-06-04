@@ -4,6 +4,8 @@ import { HttpClient } from '@angular/common/http';
 import { trigger, style, transition, animate, keyframes, query, stagger } from '@angular/animations';
 import { Currency } from './currency';
 
+import { ApiService } from './service/api.service';
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -35,48 +37,18 @@ export class AppComponent implements OnInit {
 
 
 
-  constructor(private http: HttpClient ){}
+  constructor(private http: HttpClient, private apiService: ApiService){}
 
   ngOnInit(){
-    this.downloadCurrency();
+    this.currencyArr = this.apiService.downloadCurrency();
     setInterval(() => {
-      this.updateCurrency();
+      this.apiService.updateCurrency();
     }, 30000);
   }
 
-  downloadCurrency(){
-    this.http.get('https://exchangeratesapi.io/api/latest?base=' + this.currencyType)
-    .subscribe(
-      (res: any) => {
-        //const currency = res;
-        //console.log(typeof res);
-        let currency = res.rates;
-        Object.entries(currency).forEach(
-        (item, index) => {
-          this.currencyArr.push(new Currency(item[0],item[1],0));
-        });
-      }
-    );
-  }
 
-  updateCurrency(){
-    this.http.get('https://exchangeratesapi.io/api/latest?base=')
-    .subscribe(
-      (res: any) => {
-        const currency = res;
-        Object.entries(currency.rates).forEach(
-        (item, index) => {
-          this.currencyArr.forEach(
-            (elem) => {
-              if(elem.name === res.name){
-                elem.value = res.value;
-              }
-            }
-          );
-        });
-      }
-    );
-  }
+
+
 
   onCurrencyFired(currency: Currency){
     this.clickedArr.push(new Currency(currency.name, currency.value, currency.favorite));

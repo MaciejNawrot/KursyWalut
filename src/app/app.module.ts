@@ -6,6 +6,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppComponent } from './app.component';
 import { CurrencyComponent } from './currency/currency.component';
 import { FavoritesComponent } from './favorites/favorites.component';
+import { ApiService } from './service/api.service';
 
 
 @NgModule({
@@ -19,7 +20,7 @@ import { FavoritesComponent } from './favorites/favorites.component';
     HttpClientModule,
     BrowserAnimationsModule
   ],
-  providers: [],
+  providers: [ApiService],
   bootstrap: [AppComponent]
 })
 

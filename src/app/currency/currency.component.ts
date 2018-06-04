@@ -1,6 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 
 import { Currency } from '../currency';
+import { ApiService } from '../service/api.service';
 
 @Component({
   selector: 'app-currency',
@@ -11,7 +12,7 @@ export class CurrencyComponent implements OnInit {
   @Input() currency: Currency;
   @Output() currencyFired = new EventEmitter<Currency>();
 
-  constructor() { }
+  constructor(private apiService:ApiService) { }
 
   ngOnInit() {
   }
